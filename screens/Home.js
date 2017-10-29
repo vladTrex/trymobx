@@ -7,7 +7,8 @@ import {
   StyleSheet,
   Button,
   FlatList,
-  TextInput
+  TextInput,
+  Animated
 } from "react-native";
 
 // observer
@@ -34,6 +35,17 @@ export default class HomeScreen extends Component {
     project: ""
   };
 
+  componentWillMount(){
+    this.animatedValue = new Animated.Value(0);
+  }
+
+  componentDidMount(){
+    Animated.timing(this.animatedValue, {
+      toValue: 10,
+      duration: 1500
+    }).start();
+  }
+
   addProject() {
     const { projectStore, navigation } = this.props;
     const { project } = this.state;
@@ -43,9 +55,16 @@ export default class HomeScreen extends Component {
   }
   render() {
     const { projectStore } = this.props;
+    const interpolateColor = this.animatedValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['rgb(252, 252, 252)', 'rgb(51, 250, 170)']
+    });
+    const animatedStyle = {
+      backgroundColor: interpolateColor
+    };
 
     return (
-      <View style={styles.container}>
+      <Animated.View style={[styles.container, animatedStyle]}>
         <Text>Mobx. Scalable state managment.</Text>
         <TextInput
           value={this.state.project}
@@ -54,7 +73,7 @@ export default class HomeScreen extends Component {
           style={styles.input}
         />
         <Button title="Add Project" onPress={this.addProject.bind(this)} />
-      </View>
+      </Animated.View>
     );
   }
 }

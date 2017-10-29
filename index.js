@@ -3,16 +3,13 @@ import { AppRegistry } from "react-native";
 import { StackNavigator } from "react-navigation";
 import { useStrict } from "mobx";
 import store from "./store";
-import HomeScreen from "./screens/Home";
-import ProjectScreen from "./screens/Project";
 import { observer, Provider, inject } from "mobx-react";
+
+import { routes } from './config/routes';
 
 useStrict(true);
 
-const AppNavigator = StackNavigator({
-  Home: { screen: HomeScreen },
-  Project: { screen: ProjectScreen }
-});
+const AppNavigator = StackNavigator(routes);
 
 const App = () => (
   <Provider {...store}>
