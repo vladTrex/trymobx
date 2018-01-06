@@ -1,0 +1,24 @@
+{
+  "projects": [
+    {
+      "name": "Aimy",
+      "description":
+        "Lorem ipsum dolor sit amet, eam melius audire mediocrem ne, delectus temporibus vel ne."
+    },
+    {
+      "name": "DPD",
+      "description":
+        "Lorem ipsum dolor sit amet, eam melius audire mediocrem ne, delectus temporibus vel ne."
+    },
+    {
+      "name": "eCommerce Inc.",
+      "description":
+        "Lorem ipsum dolor sit amet, eam melius audire mediocrem ne, delectus temporibus vel ne."
+    },
+    {
+      "name": "Jean Belt",
+      "description":
+        "Lorem ipsum dolor sit amet, eam melius audire mediocrem ne, delectus temporibus vel ne."
+    }
+  ]
+}

@@ -11,6 +11,10 @@ export default class ProjectStore {
       this.projects.push(project)
     }
 
+    @action async fetchAll(){
+      
+    }
+
     // @computed
     // get fullName(){
     //     return `${this.firstName} ${this.lastName}`

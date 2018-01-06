@@ -8,8 +8,12 @@ import {
   Button,
   FlatList,
   TextInput,
-  Animated
+  Animated,
+  Platform
 } from "react-native";
+
+import { authDecorator } from "../services/authService";
+import { getProjects } from "../services/api";
 
 // observer
 // observable
@@ -18,28 +22,28 @@ import {
 // action
 // useStrict(true)
 
-const Message = ({ item }) => (
-  <View style={styles.message}>
-    <Text>{item}</Text>
-  </View>
-);
-
 @inject("projectStore")
 @observer
-export default class HomeScreen extends Component {
+class Home extends Component {
   static navigationOptions = {
-    title: "Mobx is great!"
+    header: null
   };
 
   state = {
-    project: ""
+    project: "",
+    projects: []
   };
 
-  componentWillMount(){
+  componentWillMount() {
+    const { projectStore } = this.props;
+
     this.animatedValue = new Animated.Value(0);
+    getProjects(snapshot => {
+      projectStore.projects = Object.values(snapshot.val());
+    });
   }
 
-  componentDidMount(){
+  componentDidMount() {
     Animated.timing(this.animatedValue, {
       toValue: 10,
       duration: 1500
@@ -51,13 +55,15 @@ export default class HomeScreen extends Component {
     const { project } = this.state;
 
     projectStore.addProject(project);
-    navigation.navigate('Project');
+    navigation.navigate("Project");
   }
   render() {
     const { projectStore } = this.props;
+
+    console.log(projectStore.projects);
     const interpolateColor = this.animatedValue.interpolate({
       inputRange: [0, 1],
-      outputRange: ['rgb(252, 252, 252)', 'rgb(51, 250, 170)']
+      outputRange: ["rgb(252, 252, 252)", "rgb(51, 250, 170)"]
     });
     const animatedStyle = {
       backgroundColor: interpolateColor
@@ -65,7 +71,7 @@ export default class HomeScreen extends Component {
 
     return (
       <Animated.View style={[styles.container, animatedStyle]}>
-        <Text>Mobx. Scalable state managment.</Text>
+        <Text>Mobx. Scalable state managment. </Text>
         <TextInput
           value={this.state.project}
           onChangeText={project => this.setState({ project })}
@@ -77,6 +83,9 @@ export default class HomeScreen extends Component {
     );
   }
 }
+
+//  authDecorator(HomeScreen);
+export default Home;
 
 const styles = StyleSheet.create({
   container: {
