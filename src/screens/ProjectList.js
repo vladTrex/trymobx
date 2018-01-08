@@ -10,9 +10,11 @@ import {
   TextInput
 } from "react-native";
 
+import ProjectList from './components/ProjectList'
+
 @inject("projectStore")
 @observer
-export default class ProjectScreen extends Component {
+export default class ProjectListScreen extends Component {
   static navigationOptions = {
     title: "Mobx is great!"
   };
@@ -20,7 +22,7 @@ export default class ProjectScreen extends Component {
   render() {
     return (
       <View>
-        <Text>Project: {this.props.projectStore.projects.slice(-1)[0]}</Text>
+        <ProjectList projects={this.props.projectStore.projects} />
       </View>
     );
   }

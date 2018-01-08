@@ -8,11 +8,9 @@ import {
   Button,
   FlatList,
   TextInput,
-  Animated,
   Platform
 } from "react-native";
 
-import { authDecorator } from "../services/authService";
 import { getProjects } from "../services/api";
 
 // observer
@@ -30,24 +28,15 @@ class Home extends Component {
   };
 
   state = {
-    project: "",
-    projects: []
+    project: ""
   };
 
   componentWillMount() {
     const { projectStore } = this.props;
 
-    this.animatedValue = new Animated.Value(0);
     getProjects(snapshot => {
       projectStore.projects = Object.values(snapshot.val());
     });
-  }
-
-  componentDidMount() {
-    Animated.timing(this.animatedValue, {
-      toValue: 10,
-      duration: 1500
-    }).start();
   }
 
   addProject() {
@@ -55,22 +44,13 @@ class Home extends Component {
     const { project } = this.state;
 
     projectStore.addProject(project);
-    navigation.navigate("Project");
+    navigation.navigate("ProjectList");
   }
   render() {
     const { projectStore } = this.props;
 
-    console.log(projectStore.projects);
-    const interpolateColor = this.animatedValue.interpolate({
-      inputRange: [0, 1],
-      outputRange: ["rgb(252, 252, 252)", "rgb(51, 250, 170)"]
-    });
-    const animatedStyle = {
-      backgroundColor: interpolateColor
-    };
-
     return (
-      <Animated.View style={[styles.container, animatedStyle]}>
+      <View style={[styles.container]}>
         <Text>Mobx. Scalable state managment. </Text>
         <TextInput
           value={this.state.project}
@@ -79,12 +59,11 @@ class Home extends Component {
           style={styles.input}
         />
         <Button title="Add Project" onPress={this.addProject.bind(this)} />
-      </Animated.View>
+      </View>
     );
   }
 }
 
-//  authDecorator(HomeScreen);
 export default Home;
 
 const styles = StyleSheet.create({

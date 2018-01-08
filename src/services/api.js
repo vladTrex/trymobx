@@ -1,4 +1,4 @@
-import { signup, login, initialize, setListener } from './firebase';
+import { signup, login, initialize, setListener, pushData } from './firebase';
 
 export const initApi = () => initialize();
 

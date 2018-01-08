@@ -2,13 +2,13 @@ import React from "react";
 import { AppRegistry } from "react-native";
 import { StackNavigator } from "react-navigation";
 import { useStrict } from "mobx";
-import store from "./store";
 import { observer, Provider, inject } from "mobx-react";
 
-import { routes } from "./config/routes";
-import { initApi } from "./services/api";
+import { routes } from "./src/config/routes";
+import { initApi } from "./src/services/api";
+import store from "./src/store";
 
-// useStrict(true);
+useStrict(true);
 
 const AppNavigator = StackNavigator(routes, {
   initialRouteName: "Login"

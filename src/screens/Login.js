@@ -8,10 +8,11 @@ import {
   StyleSheet,
   Button
 } from "react-native";
+import { NavigationActions } from "react-navigation";
 
 import { login } from "../services/api";
 import authService from "../services/authService";
-import { NavigationActions } from "react-navigation";
+import { HOME_SCREEN } from '../constants/navigation';
 
 export default class Login extends Component {
   static navigationOptions = {
@@ -29,7 +30,7 @@ export default class Login extends Component {
 
     try {
       const response = await login(user, password);
-      this.clearAndNavigate('Home');
+      this.clearAndNavigate(HOME_SCREEN);
     } catch ({ message }) {
       this.setState({
         error: message
@@ -48,7 +49,7 @@ export default class Login extends Component {
     this.props.navigation.dispatch(
       NavigationActions.reset({
         index: 0,
-        actions: [NavigationActions.navigate({ routeName: "Home" })]
+        actions: [NavigationActions.navigate({ routeName: HOME_SCREEN })]
       })
     );
   }
@@ -91,7 +92,7 @@ export default class Login extends Component {
             <Text style={styles.error}>{this.state.error}</Text>
           </View>
         )}
-        <Button onPress={() => this.submit()} title="Login" />
+        <Button style={styles.loginBtn} onPress={() => this.submit()} title="Login" />
       </View>
     );
   }
@@ -112,6 +113,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 10,
     borderColor: "#CACACA"
+  },
+  loginBtn: {
+    marginHorizontal: 20
   },
   validationErrors: {
     flexDirection: "row",
