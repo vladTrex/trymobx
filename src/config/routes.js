@@ -1,6 +1,9 @@
+import { StackNavigator, DrawerNavigator } from 'react-navigation';
+
 import Home from "../screens/Home";
 import ProjectListScreen from "../screens/ProjectList";
 import Login from "../screens/Login";
+import Profile from "../screens/Profile";
 
 export const routes = {
   Home: {
@@ -9,4 +12,3 @@ export const routes = {
   ProjectList: { screen: ProjectListScreen },
   Login: { screen: Login }
 };
-
