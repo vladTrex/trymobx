@@ -10,7 +10,7 @@ import {
   TextInput
 } from "react-native";
 
-import ProjectList from './components/ProjectList'
+import ProjectList from '../components/ProjectList'
 
 @inject("projectStore")
 @observer

@@ -9,12 +9,7 @@ export default class ProjectStore {
 
     @action
     addProject(project){
-      this.projects.push(project)
-      postProject({project})
-    }
-
-    @action async fetchAll(){
-      
+      postProject({id: `ID_${new Date().getUTCMilliseconds()}`, title: project})
     }
 
 }

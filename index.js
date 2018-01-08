@@ -7,11 +7,12 @@ import { observer, Provider, inject } from "mobx-react";
 import { routes } from "./src/config/routes";
 import { initApi } from "./src/services/api";
 import store from "./src/store";
+import { LOGIN_SCREEN } from './src/constants/navigation';
 
 useStrict(true);
 
 const AppNavigator = StackNavigator(routes, {
-  initialRouteName: "Login"
+  initialRouteName: LOGIN_SCREEN
 });
 
 initApi();

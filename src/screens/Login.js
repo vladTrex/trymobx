@@ -5,15 +5,16 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
-  Button
+  StyleSheet
 } from "react-native";
+import { inject } from "mobx-react";
 import { NavigationActions } from "react-navigation";
 
 import { login } from "../services/api";
 import authService from "../services/authService";
 import { HOME_SCREEN } from '../constants/navigation';
 
+@inject("userStore")
 export default class Login extends Component {
   static navigationOptions = {
     header: null
@@ -26,10 +27,11 @@ export default class Login extends Component {
   };
 
   async submit() {
+    const { userStore } = this.props;
     const { user, password } = this.state;
 
     try {
-      const response = await login(user, password);
+      await userStore.login(user, password);
       this.clearAndNavigate(HOME_SCREEN);
     } catch ({ message }) {
       this.setState({
@@ -73,6 +75,7 @@ export default class Login extends Component {
           editable={true}
           maxLength={40}
           multiline={false}
+          underlineColorAndroid="transparent"
           placeholder="Email"
         />
         <TextInput
@@ -85,6 +88,7 @@ export default class Login extends Component {
           secureTextEntry={true}
           maxLength={40}
           multiline={false}
+          underlineColorAndroid="transparent"
           placeholder="Password"
         />
         {this.state.error && (
@@ -92,7 +96,9 @@ export default class Login extends Component {
             <Text style={styles.error}>{this.state.error}</Text>
           </View>
         )}
-        <Button style={styles.loginBtn} onPress={() => this.submit()} title="Login" />
+        <TouchableOpacity style={styles.loginBtn} onPress={() => this.submit()}> 
+        <Text style={styles.loginText}>Login</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -115,7 +121,15 @@ const styles = StyleSheet.create({
     borderColor: "#CACACA"
   },
   loginBtn: {
-    marginHorizontal: 20
+    backgroundColor: '#1e6c99',
+    marginHorizontal: 20,
+    marginVertical: 10,
+    padding: 10,
+    borderRadius: 10
+  },
+  loginText: {
+    color: 'white',
+    textAlign: 'center'
   },
   validationErrors: {
     flexDirection: "row",

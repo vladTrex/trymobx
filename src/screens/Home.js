@@ -12,6 +12,7 @@ import {
 } from "react-native";
 
 import { getProjects } from "../services/api";
+import { PROJECT_LIST_SCREEN } from '../constants/navigation';
 
 // observer
 // observable
@@ -20,7 +21,7 @@ import { getProjects } from "../services/api";
 // action
 // useStrict(true)
 
-@inject("projectStore")
+@inject('projectStore')
 @observer
 class Home extends Component {
   static navigationOptions = {
@@ -44,14 +45,14 @@ class Home extends Component {
     const { project } = this.state;
 
     projectStore.addProject(project);
-    navigation.navigate("ProjectList");
+    navigation.navigate(PROJECT_LIST_SCREEN);
   }
   render() {
     const { projectStore } = this.props;
 
     return (
       <View style={[styles.container]}>
-        <Text>Mobx. Scalable state managment. </Text>
+        <Text> Please add new project... </Text>
         <TextInput
           value={this.state.project}
           onChangeText={project => this.setState({ project })}
